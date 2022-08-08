@@ -15,6 +15,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv
 from finrl import config
 from finrl.finrl_meta.env_stock_trading.env_stocktrading import StockTradingEnv
 from finrl.finrl_meta.preprocessor.preprocessors import data_split
+import torch
 
 MODELS = {"a2c": A2C, "ddpg": DDPG, "td3": TD3, "sac": SAC, "ppo": PPO}
 
@@ -85,6 +86,7 @@ class DRLAgent:
             model_kwargs["action_noise"] = NOISE[model_kwargs["action_noise"]](
                 mean=np.zeros(n_actions), sigma=0.1 * np.ones(n_actions)
             )
+        
         print(model_kwargs)
         return MODELS[model_name](
             policy=policy,
