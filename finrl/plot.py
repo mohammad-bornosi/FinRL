@@ -62,7 +62,7 @@ def backtest_plot(
     baseline_returns = get_daily_return(baseline_df, value_col_name="close")
 
     with pyfolio.plotting.plotting_context(font_scale=1.1):
-        pyfolio.create_full_tear_sheet(
+        return pyfolio.create_full_tear_sheet(
             returns=test_returns, benchmark_rets=baseline_returns, set_context=False
         )
 
