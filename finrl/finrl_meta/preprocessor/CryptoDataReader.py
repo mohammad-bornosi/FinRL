@@ -63,8 +63,8 @@ class CryptoDataLoader:
         df = df.sort_values(["date", "tic"], ignore_index=True)
         df.index = df.date.factorize()[0]
         merged_closes = df.pivot_table(index="date", columns="tic", values="close")
-        print(merged_closes.isna().sum())
-        bool = merged_closes.isna().sum() != 322
+        print(max(merged_closes.isna().sum()))
+        bool = merged_closes.isna().sum() != 302
         all_tics = bool.index
         merged_closes = merged_closes.drop(columns = all_tics[np.where(bool == True)])
         merged_closes = merged_closes.dropna(axis=0)

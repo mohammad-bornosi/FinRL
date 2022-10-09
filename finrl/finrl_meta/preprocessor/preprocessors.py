@@ -140,12 +140,10 @@ class FeatureEngineer:
         df = df.sort_values(by=["tic", "date"])
         stock = Sdf.retype(df.copy())
         unique_ticker = stock.tic.unique()
-        print(len(unique_ticker))
         for indicator in self.tech_indicator_list:
             indicator_df = pd.DataFrame()
             for i in range(len(unique_ticker)):
                 try:
-                    print(i)
                     temp_indicator = stock[stock.tic == unique_ticker[i]][indicator]
                     temp_indicator = pd.DataFrame(temp_indicator)
                     temp_indicator["tic"] = unique_ticker[i]
