@@ -52,14 +52,17 @@ def backtest_plot(
     df["date"] = pd.to_datetime(df["date"])
     test_returns = get_daily_return(df, value_col_name=value_col_name)
 
-    baseline_df = get_baseline(
-        ticker=baseline_ticker, start=baseline_start, end=baseline_end
-    )
+    #baseline_df = get_baseline(
+    #    ticker=baseline_ticker, start=baseline_start, end=baseline_end
+    #)
+    baseline_df = baseline_ticker
 
     baseline_df["date"] = pd.to_datetime(baseline_df["date"], format="%Y-%m-%d")
     baseline_df = pd.merge(df[["date"]], baseline_df, how="left", on="date")
     baseline_df = baseline_df.fillna(method="ffill").fillna(method="bfill")
     baseline_returns = get_daily_return(baseline_df, value_col_name="close")
+    print(test_returns)
+    print(baseline_returns)
 
     with pyfolio.plotting.plotting_context(font_scale=1.1):
         return pyfolio.create_full_tear_sheet(
@@ -85,11 +88,13 @@ def trx_plot(df_trade, df_actions, ticker_list):
         buying_signal = df_trx_temp_sign.apply(lambda x: x > 0)
         selling_signal = df_trx_temp_sign.apply(lambda x: x < 0)
 
+        print('fuck')
         tic_plot = df_trade[
             (df_trade["tic"] == df_trx_temp.name)
             & (df_trade["date"].isin(df_trx.index))
-            ]["close"]
+            ]["adj close"]
         tic_plot.index = df_trx_temp.index
+        print('fuckk')
 
         plt.figure(figsize=(10, 8))
         plt.plot(tic_plot, color="g", lw=2.0)

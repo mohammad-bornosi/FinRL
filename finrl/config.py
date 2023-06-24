@@ -20,8 +20,8 @@ TRADE_END_DATE = "2021-12-01"
 # check https://pypi.org/project/stockstats/ for different names
 INDICATORS = [
     "macd",
-    "boll_ub",
-    "boll_lb",
+    # "boll_ub",
+    # "boll_lb",
     "rsi_30",
     "cci_30",
     "dx_30",
@@ -38,8 +38,10 @@ PPO_PARAMS = {
     "learning_rate": 0.00025,
     "batch_size": 64,
 }
-DDPG_PARAMS = {"batch_size": 128, "buffer_size": 50000, "learning_rate": 'auto_0.001'}
-TD3_PARAMS = {"batch_size": 100, "buffer_size": 1000000, "learning_rate": 0.001}
+DDPG_PARAMS = {"batch_size": 128, "buffer_size": 50000,
+               "learning_rate": 'auto_0.001'}
+TD3_PARAMS = {"batch_size": 100,
+              "buffer_size": 1000000, "learning_rate": 0.001}
 SAC_PARAMS = {
     "batch_size": 64,
     "buffer_size": 100000,
@@ -65,7 +67,8 @@ TIME_ZONE_USEASTERN = 'US/Eastern'  # Dow, Nasdaq, SP
 TIME_ZONE_PARIS = 'Europe/Paris'  # CAC,
 TIME_ZONE_BERLIN = 'Europe/Berlin'  # DAX, TECDAX, MDAX, SDAX
 TIME_ZONE_JAKARTA = 'Asia/Jakarta'  # LQ45
-TIME_ZONE_SELFDEFINED = 'xxx'  # If neither of the above is your time zone, you should define it, and set USE_TIME_ZONE_SELFDEFINED 1.
+# If neither of the above is your time zone, you should define it, and set USE_TIME_ZONE_SELFDEFINED 1.
+TIME_ZONE_SELFDEFINED = 'xxx'
 USE_TIME_ZONE_SELFDEFINED = 0  # 0 (default) or 1 (use the self defined)
 
 # parameters for data sources
@@ -73,7 +76,3 @@ ALPACA_API_KEY = "xxx"  # your ALPACA_API_KEY
 ALPACA_API_SECRET = "xxx"  # your ALPACA_API_SECRET
 ALPACA_API_BASE_URL = 'https://paper-api.alpaca.markets'  # alpaca url
 BINANCE_BASE_URL = 'https://data.binance.vision/'  # binance url
-
-
-
-

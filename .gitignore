@@ -3,7 +3,7 @@
 
 # remove DS_Store
 **/.DS_Store
-
+MARKETS/	
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

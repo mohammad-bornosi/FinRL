@@ -58,7 +58,7 @@ class FeatureEngineer:
 
     def __init__(
         self,
-        use_technical_indicator=True,
+        use_technical_indicator=False,
         tech_indicator_list=config.INDICATORS,
         use_vix=False,
         use_turbulence=False,
@@ -102,6 +102,19 @@ class FeatureEngineer:
         df = df.fillna(method="ffill").fillna(method="bfill")
         return df
 
+    def unique(self, list1):
+
+        # initialize a null list
+        unique_list = []
+
+    # traverse for all elements
+        for x in list1:
+            # check if exists in unique_list or not
+            if x not in unique_list:
+                unique_list.append(x)
+    # print list
+        return unique_list
+
     def clean_data(self, data):
         """
         clean the raw data
@@ -113,10 +126,16 @@ class FeatureEngineer:
         df = data.copy()
         df = df.sort_values(["date", "tic"], ignore_index=True)
         df.index = df.date.factorize()[0]
-        merged_closes = df.pivot_table(index="date", columns="tic", values="close")
+        merged_closes = df.pivot_table(
+            index="date", columns="tic", values="close")
         merged_closes = merged_closes.dropna(axis=1)
         tics = merged_closes.columns
         df = df[df.tic.isin(tics)]
+        # merged_closes = merged_closes.dropna(axis=0)
+
+        # dates = merged_closes.index
+
+        # df = df[df.date.isin(dates)]
         # df = data.copy()
         # list_ticker = df["tic"].unique().tolist()
         # only apply to daily level data, need to fix for minute level
@@ -142,17 +161,38 @@ class FeatureEngineer:
         unique_ticker = stock.tic.unique()
         for indicator in self.tech_indicator_list:
             indicator_df = pd.DataFrame()
+            print('indicator :', indicator)
             for i in range(len(unique_ticker)):
                 try:
-                    temp_indicator = stock[stock.tic == unique_ticker[i]][indicator]
+                    temp_indicator = stock[stock.tic ==
+                                           unique_ticker[i]][indicator]
+
                     temp_indicator = pd.DataFrame(temp_indicator)
+                    sample_indicator = temp_indicator
+
                     temp_indicator["tic"] = unique_ticker[i]
-                    temp_indicator["date"] = df[df.tic == unique_ticker[i]]["date"].to_list()
+
+                    choosen_df = df[df.tic ==
+                                    unique_ticker[i]]["date"].to_list()
+
+                    for j in range(0, max(len(sample_indicator), len(choosen_df))-1):
+                        print(indicator)
+                        print(j)
+                        print(max(len(sample_indicator), len(choosen_df)))
+                        print(len(self.unique(choosen_df)) == len(choosen_df))
+                        print('tem_indictor :', temp_indicator.index[j])
+                        print("choosen_df", choosen_df[j])
+                    print(4)
+
+                    temp_indicator["date"] = df[df.tic ==
+                                                unique_ticker[i]]["date"].to_list()
+
                     indicator_df = indicator_df.append(
-                    temp_indicator, ignore_index=True
-                )
+                        temp_indicator, ignore_index=True
+                    )
                 except Exception as e:
                     print(e)
+
             df = df.merge(
                 indicator_df[["tic", "date", indicator]], on=["tic", "date"], how="left"
             )
@@ -220,7 +260,8 @@ class FeatureEngineer:
         # turbulence_index = [0]
         count = 0
         for i in range(start, len(unique_date)):
-            current_price = df_price_pivot[df_price_pivot.index == unique_date[i]]
+            current_price = df_price_pivot[df_price_pivot.index ==
+                                           unique_date[i]]
             # use one year rolling window to calcualte covariance
             hist_price = df_price_pivot[
                 (df_price_pivot.index < unique_date[i])
@@ -228,7 +269,7 @@ class FeatureEngineer:
             ]
             # Drop tickers which has number missing values more than the "oldest" ticker
             filtered_hist_price = hist_price.iloc[
-                hist_price.isna().sum().min() :
+                hist_price.isna().sum().min():
             ].dropna(axis=1)
 
             cov_temp = filtered_hist_price.cov()
