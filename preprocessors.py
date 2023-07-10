@@ -3,7 +3,7 @@ import datetime
 import numpy as np
 import pandas as pd
 from finrl import config
-from finrl.finrl_meta.preprocessor.yahoodownloader import YahooDownloader
+from finrl.metaFinrl.preprocessor.yahoodownloader import YahooDownloader
 from stockstats import StockDataFrame as Sdf
 
 

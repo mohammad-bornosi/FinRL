@@ -1,10 +1,14 @@
 
-
+import os
 # directory
-DATA_SAVE_DIR = "datasets"
-TRAINED_MODEL_DIR = "trained_models"
-TENSORBOARD_LOG_DIR = "tensorboard_log"
-RESULTS_DIR = "results"
+ROOT_PATH = "/mnt/f/financial_projects/Deep Reinforcement Learning Approaches on Stock Prediction/FinRL/MARKETS"
+CHOOSEN_MARKET = "ForexMarket" 
+
+DATA_SAVE_DIR = os.path.join(ROOT_PATH, CHOOSEN_MARKET, 'DATASET')
+TRAINED_MODEL_DIR = os.path.join(ROOT_PATH, CHOOSEN_MARKET, 'TRAINED_MODEL_DIR')
+TENSORBOARD_LOG_DIR = os.path.join(ROOT_PATH, CHOOSEN_MARKET, 'TENSORBOARD_LOG_DIR')
+RESULTS_DIR = os.path.join(ROOT_PATH, CHOOSEN_MARKET, 'RESULTS_DIR')
+BACKTESTING_DATA = os.path.join(ROOT_PATH, CHOOSEN_MARKET, 'BACKTSTING_DATA')
 
 # date format: '%Y-%m-%d'
 TRAIN_START_DATE = "2014-01-01"
@@ -76,3 +80,4 @@ ALPACA_API_KEY = "xxx"  # your ALPACA_API_KEY
 ALPACA_API_SECRET = "xxx"  # your ALPACA_API_SECRET
 ALPACA_API_BASE_URL = 'https://paper-api.alpaca.markets'  # alpaca url
 BINANCE_BASE_URL = 'https://data.binance.vision/'  # binance url
+

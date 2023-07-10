@@ -1,4 +1,4 @@
-from finrl.finrl_meta.env_stock_trading.env_stock_papertrading import AlpacaPaperTrading
+from finrl.metaFinrl.env_stock_trading.env_stock_papertrading import AlpacaPaperTrading
 from finrl.test import test
 
 

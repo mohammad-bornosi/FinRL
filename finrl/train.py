@@ -9,10 +9,10 @@ from finrl.config import (
 
 from finrl.config_tickers import DOW_30_TICKER
 
-from finrl.finrl_meta.data_processor import DataProcessor
+from finrl.metaFinrl.data_processor import DataProcessor
 
 # construct environment
-from finrl.finrl_meta.env_stock_trading.env_stocktrading_np import StockTradingEnv
+from finrl.metaFinrl.env_stock_trading.env_stocktrading_np import StockTradingEnv
 
 def train(
         start_date,

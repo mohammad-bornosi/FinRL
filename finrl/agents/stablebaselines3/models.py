@@ -13,8 +13,8 @@ from stable_baselines3.common.noise import (
 from stable_baselines3.common.vec_env import DummyVecEnv
 
 from finrl import config
-from finrl.finrl_meta.env_stock_trading.env_stocktrading import StockTradingEnv
-from finrl.finrl_meta.preprocessor.preprocessors import data_split
+from finrl.metaFinrl.env_stock_trading.env_stocktrading import StockTradingEnv
+from finrl.metaFinrl.preprocessor.preprocessors import data_split
 import torch
 
 MODELS = {"a2c": A2C, "ddpg": DDPG, "td3": TD3, "sac": SAC, "ppo": PPO}
